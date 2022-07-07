@@ -37,6 +37,7 @@ interface IForm {
   username: string;
   password: string;
   password1: string;
+  extraError?: string;
 }
 
 function ToDoList() {
@@ -46,6 +47,7 @@ function ToDoList() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IForm>({
     defaultValues: {
       email: "@naver.com",
@@ -55,8 +57,15 @@ function ToDoList() {
   // spread object of register fn as props of input
   // watch : literally watch inputs
   // formstate.errors: (object)error handling
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IForm) => {
+    if (data.password !== data.password1) {
+      return setError("password1", { message: "Password are not the same" });
+    }
+    setError(
+      "extraError",
+      { message: "Server Offline" },
+      { shouldFocus: true },
+    );
   };
   console.log(errors);
 
@@ -69,6 +78,10 @@ function ToDoList() {
         <input
           {...register("email", {
             required: "Email is required",
+            validate: {
+              noNico: (value) => !value.includes("nico") || "no nicos allowed",
+              noNick: (value) => !value.includes("nick") || "no nick allowed",
+            },
             pattern: {
               value: /^[A-Za-z0-9._%+-]+@naver.com$/,
               message: "Only naver.com emails allowed",
