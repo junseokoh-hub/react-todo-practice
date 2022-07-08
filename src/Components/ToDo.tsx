@@ -1,4 +1,3 @@
-import { ReactComponentElement } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { Categories, IToDo, toDoState } from "../atoms";
@@ -31,14 +30,26 @@ function ToDo({ text, category, id }: IToDo) {
     } = event;
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      const oldToDo = oldToDos[targetIndex];
-      const newToDo = { text, id, category: name as any };
-      console.log(oldToDo, newToDo);
-      return [
+      const newToDo = { text, id, category: name as Categories };
+      const newToDos = [
         ...oldToDos.slice(0, targetIndex),
         newToDo,
         ...oldToDos.slice(targetIndex + 1),
       ];
+      localStorage.setItem("todos", JSON.stringify(newToDos));
+      return newToDos;
+    });
+  };
+
+  const onDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      const newToDos = [
+        ...oldToDos.slice(0, targetIndex),
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+      localStorage.setItem("todos", JSON.stringify(newToDos));
+      return newToDos;
     });
   };
 
@@ -69,6 +80,7 @@ function ToDo({ text, category, id }: IToDo) {
           Done
         </Btn>
       )}
+      <Btn onClick={onDelete}>Delete</Btn>
     </li>
   );
 }

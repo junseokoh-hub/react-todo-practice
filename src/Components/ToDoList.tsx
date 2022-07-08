@@ -8,7 +8,7 @@ function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    setCategory(event.currentTarget.value as any);
+    setCategory(event.currentTarget.value as Categories);
   };
   console.log(category);
   console.log(toDos);
