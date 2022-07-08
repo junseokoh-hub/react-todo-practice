@@ -1,7 +1,7 @@
 import { ReactComponentElement } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { IToDo, toDoState } from "../atoms";
+import { Categories, IToDo, toDoState } from "../atoms";
 
 const Btn = styled.button`
   margin: 0 0.5em;
@@ -41,21 +41,31 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
+
   return (
     <li>
       <span>{text}</span>
-      {category !== "DOING" && (
-        <Btn name="DOING" onClick={onClick /*() => onClick("DOING")*/}>
+      {category !== Categories.DOING && (
+        <Btn
+          name={Categories.DOING + ""}
+          onClick={onClick /*() => onClick("DOING")*/}
+        >
           Doing
         </Btn>
       )}
-      {category !== "TO_DO" && (
-        <Btn name="TO_DO" onClick={onClick /*() => onClick("TO_DO")*/}>
+      {category !== Categories.TO_DO && (
+        <Btn
+          name={Categories.TO_DO + ""}
+          onClick={onClick /*() => onClick("TO_DO")*/}
+        >
           To Do
         </Btn>
       )}
-      {category !== "DONE" && (
-        <Btn name="DONE" onClick={onClick /*() => onClick("DONE")*/}>
+      {category !== Categories.DONE && (
+        <Btn
+          name={Categories.DONE + ""}
+          onClick={onClick /*() => onClick("DONE")*/}
+        >
           Done
         </Btn>
       )}
