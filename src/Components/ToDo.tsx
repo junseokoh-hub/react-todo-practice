@@ -57,26 +57,17 @@ function ToDo({ text, category, id }: IToDo) {
     <li>
       <span>{text}</span>
       {category !== Categories.DOING && (
-        <Btn
-          name={Categories.DOING + ""}
-          onClick={onClick /*() => onClick("DOING")*/}
-        >
+        <Btn name={Categories.DOING + ""} onClick={onClick}>
           Doing
         </Btn>
       )}
       {category !== Categories.TO_DO && (
-        <Btn
-          name={Categories.TO_DO + ""}
-          onClick={onClick /*() => onClick("TO_DO")*/}
-        >
+        <Btn name={Categories.TO_DO + ""} onClick={onClick}>
           To Do
         </Btn>
       )}
       {category !== Categories.DONE && (
-        <Btn
-          name={Categories.DONE + ""}
-          onClick={onClick /*() => onClick("DONE")*/}
-        >
+        <Btn name={Categories.DONE + ""} onClick={onClick}>
           Done
         </Btn>
       )}
